@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realm of Legends | Fantasy Fan Community</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #8e44ad;
+            --light-accent: #9b59b6;
+            --dark-color: #1a2530;
+            --light-color: #ecf0f1;
+            --gold: #f1c40f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Palatino', 'Times New Roman', serif;
+        }
+        
+        body {
+            background-color: #121212;
+            color: var(--light-color);
+            background-image: url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(44, 62, 80, 0.9);
+            border-bottom: 3px solid var(--gold);
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .site-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+            color: var(--light-color);
+        }
+        
+        .site-description {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        /* Main Content Styles */
+        main {
+            padding: 2rem 0;
+        }
+        
+        section {
+            background-color: rgba(26, 37, 48, 0.85);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(155, 89, 182, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        h2 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            color: var(--light-accent);
+            margin: 1rem 0;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            background-image: url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(142, 68, 173, 0.8);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            border: 2px solid var(--light-accent);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--light-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Character Gallery */
+        .character-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .character-card {
+            background: rgba(26, 37, 48, 0.9);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(142, 68, 173, 0.3);
+        }
+        
+        .character-image {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        
+        .character-info {
+            padding: 1.5rem;
+        }
+        
+        .character-name {
+            font-size: 1.4rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .character-class {
+            color: var(--light-accent);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .character-description {
+            font-size: 0.9rem;
+        }
+        
+        .select-button {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .select-button:hover {
+            background-color: var(--light-accent);
+        }
+        
+        /* Profile Page */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+        
+        .profile-sidebar {
+            background: rgba(26, 37, 48, 0.9);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid rgba(155, 89, 182, 0.3);
+        }
+        
+        .profile-main {
+            background: rgba(26, 37, 48, 0.9);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid rgba(155, 89, 182, 0.3);
+        }
+        
+        .profile-avatar {
+            width: 100%;
+            border-radius: 8px;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .profile-stats {
+            margin-top: 1.5rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(155, 89, 182, 0.3);
+            padding-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--light-accent);
+        }
+        
+        .stat-value {
+            color: var(--gold);
+            font-weight: bold;
+        }
+        
+        .achievement-list {
+            margin-top: 1.5rem;
+        }
+        
+        .achievement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .achievement-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .achievement-details h4 {
+            color: var(--light-accent);
+            margin-bottom: 0.3rem;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: rgba(26, 37, 48, 0.9);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 3px solid var(--gold);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        
+        .social-icons {
+            margin: 1.5rem 0;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--dark-color);
+            border-radius: 50%;
+            margin: 0 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .site-title {
+                font-size: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1 class="site-title">Realm of Legends</h1>
+            <p class="site-description">Explore the world of fantasy, discover legends, forge your own path</p>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#characters">Characters</a></li>
+                    <li><a href="#lore">Lore</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#forum">Forum</a></li>
+                    <li><a href="#profile">My Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero" id="home">
+                <div class="hero-content">
+                    <h1>Welcome, Adventurer!</h1>
+                    <p>Join thousands of fantasy enthusiasts in a community dedicated to all things magical, mysterious, and magnificent. Create your profile, select your character, and begin your journey through the Realm of Legends.</p>
+                    <a href="#" class="cta-button">Join the Adventure</a>
+                </div>
+            </section>
+            
+            <!-- About Section -->
+            <section id="about">
+                <h2>About Realm of Legends</h2>
+                <p>Welcome to the ultimate fantasy fan community! Realm of Legends is a gathering place for enthusiasts of epic fantasy worlds, magical creatures, heroic quests, and legendary tales.</p>
+                <p>Whether you're a dungeon master, a fantasy novelist, an art enthusiast, or simply someone who loves to escape into worlds of magic and adventure, you'll find your place here.</p>
+                <div class="features">
+                    <div class="feature">
+                        <h3>🧙‍♂️ Personalized Character Profiles</h3>
+                        <p>Choose from a variety of fantasy archetypes to represent yourself in our community. Each character comes with unique traits, abilities, and a backstory you can expand.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🏰 Lore Explorer</h3>
+                        <p>Delve into rich fantasy worlds, from classic settings to original creations shared by our community members.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>🖼️ Art Gallery</h3>
+                        <p>Browse and share stunning fantasy artwork, including AI-generated imagery that brings our collective imagination to life.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Character Selection Section -->
+            <section id="characters">
+                <h2>Choose Your Character</h2>
+                <p>Select a character that resonates with your spirit. This will become your avatar in our community, representing you in discussions, forums, and gatherings.</p>
+                
+                <div class="character-gallery">
+                    <!-- Character 1 -->
+                    <div class="character-card">
+                        <img src="/api/placeholder/300/350" alt="Wizard Character" class="character-image">
+                        <div class="character-info">
+                            <h3 class="character-name">Elyndria Stormwhisper</h3>
+                            <p class="character-class">Archmage of the Silver Tower</p>
+                            <p class="character-description">A master of elemental magic with centuries of arcane knowledge. Wise yet mysterious, with a tendency to speak in riddles.</p>
+                            <button class="select-button">Choose This Character</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Character 2 -->
+                    <div class="character-card">
+                        <img src="/api/placeholder/300/350" alt="Warrior Character" class="character-image">
+                        <div class="character-info">
+                            <h3 class="character-name">Thorne Ironheart</h3>
+                            <p class="character-class">Champion of the Northern Realms</p>
+                            <p class="character-description">A fearless warrior with unmatched strength and a heart of gold. Known for charging into battle with a thunderous battle cry.</p>
+                            <button class="select-button">Choose This Character</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Character 3 -->
+                    <div class="character-card">
+                        <img src="/api/placeholder/300/350" alt="Rogue Character" class="character-image">
+                        <div class="character-info">
+                            <h3 class="character-name">Vesper Nightshade</h3>
+                            <p class="character-class">Shadow Guild Assassin</p>
+                            <p class="character-description">A master of stealth and deception who moves unseen through the darkest shadows. Swift, silent, and deadly.</p>
+                            <button class="select-button">Choose This Character</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Character 4 -->
+                    <div class="character-card">
+                        <img src="/api/placeholder/300/350" alt="Druid Character" class="character-image">
+                        <div class="character-info">
+                            <h3 class="character-name">Briar Oakenheart</h3>
+                            <p class="character-class">Guardian of the Ancient Grove</p>
+                            <p class="character-description">A shape-shifting druid with deep connections to nature and its creatures. Peaceful but fierce when the natural order is threatened.</p>
+                            <button class="select-button">Choose This Character</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Profile Page Section (Example) -->
+            <section id="profile" style="display:none;">
+                <h2>Adventurer Profile</h2>
+                
+                <div class="profile-container">
+                    <div class="profile-sidebar">
+                        <img src="/api/placeholder/400/400" alt="Character Avatar" class="profile-avatar">
+                        <h3 class="character-name">Elyndria Stormwhisper</h3>
+                        <p class="character-class">Archmage of the Silver Tower</p>
+                        
+                        <div class="profile-stats">
+                            <h4>Character Stats</h4>
+                            <div class="stat-item">
+                                <span class="stat-label">Intelligence</span>
+                                <span class="stat-value">95</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Wisdom</span>
+                                <span class="stat-value">87</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Charisma</span>
+                                <span class="stat-value">70</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Strength</span>
+                                <span class="stat-value">45</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Dexterity</span>
+                                <span class="stat-value">60</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-main">
+                        <h3>Character Backstory</h3>
+                        <p>Born under the twin moons of Mystara, Elyndria showed magical aptitude from an early age. She apprenticed under the legendary Archmagus Zephyrian for a century before establishing her own tower in the misty peaks of the Silvercrests.</p>
+                        <p>Now over 300 years old, she has mastered the elemental forces and seeks knowledge of the ancient magics lost to time.</p>
+                        
+                        <h3>Recent Activity</h3>
+                        <ul>
+                            <li>Commented on "Theories of Arcane Convergence" in the Magic Forum</li>
+                            <li>Added 3 new images to the Spellcraft Gallery</li>
+                            <li>Achieved the "Loremaster" badge for contributions to the Knowledge Base</li>
+                        </ul>
+                        
+                        <h3>Achievements</h3>
+                        <div class="achievement-list">
+                            <div class="achievement">
+                                <div class="achievement-icon">⭐</div>
+                                <div class="achievement-details">
+                                    <h4>Arcane Scholar</h4>
+                                    <p>Contributed 50+ entries to the magical knowledge base</p>
+                                </div>
+                            </div>
+                            <div class="achievement">
+                                <div class="achievement-icon">🏆</div>
+                                <div class="achievement-details">
+                                    <h4>Community Sage</h4>
+                                    <p>Answered 100+ questions in the help forums</p>
+                                </div>
+                            </div>
+                            <div class="achievement">
+                                <div class="achievement-icon">🔮</div>
+                                <div class="achievement-details">
+                                    <h4>Illustrious Illusionist</h4>
+                                    <p>Shared 25+ original artwork pieces</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3>Realm of Legends</h3>
+            <p>A community for fantasy enthusiasts, adventurers, and dreamers</p>
+            
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Contact</a>
+                <a href="#">Help & Support</a>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#" aria-label="Discord">D</a>
+                <a href="#" aria-label="Twitter">T</a>
+                <a href="#" aria-label="Instagram">I</a>
+                <a href="#" aria-label="YouTube">Y</a>
+            </div>
+            
+            <p>&copy; 2025 Realm of Legends. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple JavaScript to show profile when a character is selected
+        document.querySelectorAll('.select-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Hide characters section
+                document.getElementById('characters').style.display = 'none';
+                // Show profile section
+                document.getElementById('profile').style.display = 'block';
+                
+                // In a real implementation, this would save the character choice
+                // and customize the profile based on selection
+                
+                // Scroll to profile
+                document.getElementById('profile').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
